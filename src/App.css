@@ -28,6 +28,14 @@
   color: #61dafb;
 }
 
+.grid-container{
+  padding-top: 100px;
+  display: grid;
+  grid-template-columns: 500px auto;
+  grid-template-rows: auto;
+  gap: 100px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
