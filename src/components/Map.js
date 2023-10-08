@@ -12,7 +12,7 @@ const Map = ({eventData, eventData2, center, zoom}) => {
 
     const markers = eventData && eventData.map(ev => {
         if(ev.categories[0].id === "wildfires") {
-            if (ev.geometry[0].date[3] == '3') {
+            if (ev.geometry[0].date[3] === '3') {
                 return <LocationMarker type={0}
                 lat={ev.geometry[0].coordinates[1]} 
                 lng={ev.geometry[0].coordinates[0]}
@@ -51,7 +51,7 @@ const Map = ({eventData, eventData2, center, zoom}) => {
         var latty;
         var longy;
         for (var i = 0; i < counties.length; i++){
-            if ((counties[i].county_fips).toString() == fippy){
+            if ((counties[i].county_fips).toString() === fippy){
                latty = counties[i].lat;
                longy = counties[i].lng;
                county = counties[i].county_full;
@@ -59,7 +59,7 @@ const Map = ({eventData, eventData2, center, zoom}) => {
             }
         }
 
-        if (ev2.fipsCountyCode != "000" && ev2.declarationTitle != "WELLNITZ FIRE" && ev2.declarationTitle != "WELLNITZ FIRE" && ev2.declarationTitle != "WELLNITZ FIRE" && !(ev2.declarationTitle === "SEVERE WINTER STORMS AND SNOWSTORM" && ev2.fipsCountyCode === "113")
+        if (ev2.fipsCountyCode !== "000" && ev2.declarationTitle !== "WELLNITZ FIRE" && ev2.declarationTitle !== "WELLNITZ FIRE" && ev2.declarationTitle !== "WELLNITZ FIRE" && !(ev2.declarationTitle === "SEVERE WINTER STORMS AND SNOWSTORM" && ev2.fipsCountyCode === "113")
         && ((ev2.incidentBeginDate[2] === '2' && ev2.incidentBeginDate[3] === '3')
         //|| (ev2.incidentBeginDate[2] === '2' && ev2.incidentBeginDate[3] === '2')
         )) {
