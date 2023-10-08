@@ -1,10 +1,11 @@
 import React from 'react';
+import News from './News'
 
 class AIText extends React.Component{
     render() {
       return (
         <div>
-          <p>Robin's super cool AI text here :D</p>
+          <News/>
         </div>
       );
     };

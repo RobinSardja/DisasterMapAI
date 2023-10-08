@@ -1,3 +1,4 @@
+
 const InfoBox = ({info}) => {
   return (
     <div className="location-info">
