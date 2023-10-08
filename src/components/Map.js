@@ -165,9 +165,10 @@ const Map = ({eventData, eventData2, center, zoom}) => {
       console.log(uniqueTitles)
     
       return (
-        <div>
+        <div className='info2'>
+          <div>
           <h1 style={{ color: 'white', fontSize: 25}}>More Information:</h1>
-          <section className="feed">
+          <div className="feed">
             <div id="feed">
             {loading ? (
           <div className='small-loading' id='small-loading'><Loader /></div>
@@ -180,22 +181,23 @@ const Map = ({eventData, eventData2, center, zoom}) => {
             ))}
           </ul>
         )}
-            </div>
+          </div>
+        </div>
             <div className="bottom-section">
               <div className="input-container">
-                <button id="submit" onClick={getMessages}>Latest info</button>
+                <button className='button' id="submit" onClick={getMessages}>Latest Information</button>
               </div>
               <div className="input-container">
-                <button id="prepare" onClick={getMessages}>How can I prepare?</button>
+                <button className='button' id="prepare" onClick={getMessages}>How can I prepare?</button>
               </div>
               <div className="input-container">
-                <button id="respond" onClick={getMessages}>How can I respond?</button>
+                <button className='button' id="respond" onClick={getMessages}>How can I respond?</button>
               </div>
               <div className="input-container">
-                <button id="recover" onClick={getMessages}>How can I help recover?</button>
+                <button className='button' id="recover" onClick={getMessages}>How can I help recover?</button>
               </div>
             </div>
-          </section>
+          </div>
         </div>
       );
     }
@@ -203,9 +205,11 @@ const Map = ({eventData, eventData2, center, zoom}) => {
   return (
     <div className="grid-container">
     <div> 
-        {locationInfo && <div className='side-text-container'> <div className='info'><InfoBox info={locationInfo}/></div> <div className='info'><AIText /></div></div>}
+        {locationInfo && <div className='side-text-container'> <div className='info'><InfoBox info={locationInfo}/></div> <AIText /></div>}
         {!locationInfo  && <div className='side-text-container'><div className='info'><TextBox className="info"/></div> <div className='info'><Description className="info" /></div></div>}
     </div>
+    <div>
+    <h1>Map of Natural Disasters in the US in 2023</h1>
     <div className = "map">
         <GoogleMapReact bootstrapURLKeys={{key: 
         'AIzaSyCLIexfr2fJ_XSuKzMjXsAOx8gkt8uBLqM'}}
@@ -215,6 +219,7 @@ const Map = ({eventData, eventData2, center, zoom}) => {
             {markers2}
             {markers}
         </GoogleMapReact>
+    </div>
     </div>
     </div>
   )

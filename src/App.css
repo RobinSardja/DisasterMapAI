@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Figtree&display=swap');
+
 .App {
   text-align: center;
   background-color: #caba9c;
@@ -54,6 +56,7 @@ a:active {
   padding-bottom: 50px;
   padding-left: 50px;
   padding-right: 50px;
+  align-content: center;
   display: grid;
   grid-template-columns: 1.5fr 3.5fr;
   grid-template-rows: auto;
@@ -104,10 +107,9 @@ img{
 }
 
 .feed{
-  display: grid;
-  grid-template-columns: auto;
-  grid-template-rows: auto;
+  display: flex;
   justify-content: left;
+  height: 100%;
 }
 
 #feed ul{
@@ -121,6 +123,8 @@ img{
 }
 
 .map {
+  padding-top: 20px;
+  padding-bottom: 100px;
   width: 2fr;
   height: 80vh;
   position:relative;
@@ -128,11 +132,6 @@ img{
   display: flex;
   justify-content: center;
   align-items: center;
-}
-
-.location-marker {
-  font-size: 2rem;
-  color: purple;
 }
 
 .map-loader {
@@ -170,9 +169,13 @@ img{
   height: 100%;
 }
 
-.info-2{
-  background-color: rgb(123, 242, 200);
-  border-radius: 10px; 
+.info2{
+  background-color: #4C6444;
+  border-radius: 10px;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 50vh 5vh;
+  gap: 5vh;
 }
 
 .logo img{
@@ -195,4 +198,32 @@ img{
 
 .small-loading{
   justify-content: center;
+}
+
+.button {
+  background-color: #102820;
+  border: none;
+  color: white;
+  text-align: center;
+  padding: 5px 5px 5px 5px;
+  font-size: 12px;
+  border-radius: 5px;
+  font-family: 'Figtree', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.bottom-section{
+  display:grid;
+  grid-template-columns: auto auto auto auto;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 20px;
+  gap: 5px;
+  justify-content: center;
+  align-content: end;
+}
+
+.description{
+  align-content: center;
 }

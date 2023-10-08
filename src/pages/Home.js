@@ -9,7 +9,7 @@ const Home = () => {
         <div>
             <Header />
                 <div>
-                  <h1>Map of Natural Disasters in the US in 2023</h1>
+                  <h1>Prepare, Respond, Recover</h1>
                   <MapBox />
                   </div>
             <Footer />
