@@ -27,15 +27,6 @@ const Map = ({eventData, eventData2, center, zoom}) => {
                 title: ev.title}
             )}/>
         }
-        if(ev.categories[0].id === "volcanoes") {
-                return <LocationMarker type={2}
-                lat={ev.geometry[0].coordinates[1]} 
-                lng={ev.geometry[0].coordinates[0]} 
-                onClick={() => setLocationInfo(
-                    {id: ev.id,
-                    title: ev.title}
-                )}/>
-        }
         return null
     })
 
@@ -59,12 +50,28 @@ const Map = ({eventData, eventData2, center, zoom}) => {
         && ((ev2.incidentBeginDate[2] === '2' && ev2.incidentBeginDate[3] === '3')
         //|| (ev2.incidentBeginDate[2] === '2' && ev2.incidentBeginDate[3] === '2')
         )) {
-        return <LocationMarker type={3}
+        // CATEGORIZATIONS
+        var typy = 3;
+        if (ev2.incidentType === "Hurricane") {
+            typy = 666;
+        } else if (ev2.incidentType === "Flood") {
+            typy = 444;
+        } else if (ev2.incidentType === "Severe Storm") {
+            typy = 5;
+        } else if (ev2.incidentType === "Winter Storm") {
+            typy = 6;
+        } else if (ev2.incidentType === "Fire") {
+            typy = 7;
+        } else if (ev2.incidentType === "Tornado") {
+            typy = 8;
+        }
+        // CATEGORIZATIONS
+        return <LocationMarker type={typy}
                 lat={latty} 
                 lng={longy} 
                 onClick={() => setLocationInfo(
-                    {id: ev2.declarationTitle,
-                    title: ev2.incidentBeginDate}
+                    {id: ev2.incidentType,
+                    title: ev2.declarationTitle}
                 )}/>
         } else {
             return null;
