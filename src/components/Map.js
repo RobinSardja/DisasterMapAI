@@ -185,6 +185,15 @@ const Map = ({eventData, eventData2, center, zoom}) => {
               <div className="input-container">
                 <button id="submit" onClick={getMessages}>Latest info</button>
               </div>
+              <div className="input-container">
+                <button id="prepare" onClick={getMessages}>How can I prepare?</button>
+              </div>
+              <div className="input-container">
+                <button id="respond" onClick={getMessages}>How can I respond?</button>
+              </div>
+              <div className="input-container">
+                <button id="recover" onClick={getMessages}>How can I help recover?</button>
+              </div>
             </div>
           </section>
         </div>
