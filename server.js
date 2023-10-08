@@ -19,7 +19,7 @@ app.post('/completions', async (req, res) => {
             model: "gpt-3.5-turbo",
             messages: [{
                 role: "user",
-                content: req.body.message,
+                content: `Summarize the latest info about ${req.body.disaster} in ${req.body.county}, ${req.body.state} in 50 words or less`,
             }],
             max_tokens: 100,
         })

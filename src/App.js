@@ -2,28 +2,24 @@ import { useState, useEffect } from 'react'
 
 const App = () => {
 
-  const [ value, setValue ] = useState(null)
-  const [ message, setMessage ] = useState(null)
+  const [ value, setValue ] = useState("")
+  const [ message, setMessage ] = useState("")
+
   const [ previousChats, setPreviousChats ] = useState([])
-  const [ currentTitle, setCurrentTitle ] = useState(null)
 
-  const createNewChat = () => {
-    setMessage(null)
-    setValue("")
-    setCurrentTitle(null)
-  }
+  const [ currentTitle, setCurrentTitle ] = useState("")
 
-  const handleClick = (uniqueTitle) => {
-    setCurrentTitle(uniqueTitle)
-    setMessage(null)
-    setValue("")
-  }
+  const [ disaster, setDisaster ] = useState("Hurricane Idalia")
+  const [ county, setCounty ] = useState("Hillsborough County")
+  const [ state, setState ] = useState("FL")
 
   const getMessages = async () => {
     const options = {
       method: "POST",
       body: JSON.stringify({
-        message: value,
+        disaster: disaster,
+        county: county,
+        state: state,
       }),
       headers: {
         "Content-Type": "application/json"
@@ -40,25 +36,16 @@ const App = () => {
 
   useEffect(() => {
     console.log(currentTitle, value, message)
-    if( !currentTitle && value && message ) {
-      setCurrentTitle(value)
-    }
-    if( currentTitle && value && message ) {
-      setPreviousChats(prevChats => (
-        [...prevChats,
-          {
-            title: currentTitle,
-            role: "user",
-            content: value,
-          },
-          {
-            title: currentTitle,
-            role: message.role,
-            content: message.content,
-          },
-        ]
-      ))
-    }
+    setCurrentTitle(value)
+    setPreviousChats(prevChats => (
+      [ // ...prevChats,
+        {
+          title: currentTitle,
+          role: message.role,
+          content: message.content,
+        },
+      ]
+    ))
   }, [message, currentTitle])
 
   console.log(previousChats)
@@ -69,27 +56,16 @@ const App = () => {
 
   return (
     <div className="App">
-      <section className="side-bar">
-        <button onClick={createNewChat}>+ New chat</button>
-        <ul className="history">
-          {uniqueTitles?.map((uniqueTitle, index) => <li key={index} onClick={() => handleClick(uniqueTitle)}>{uniqueTitle}</li>)}
-        </ul>
-        <nav>
-          <p>EmergenSAVE</p>
-        </nav>
-      </section>
       <section className="main">
-        {!currentTitle && <h1>EmergenSAVE</h1>}
+        <h1>EmergenSAVE</h1>
         <ul className="feed">
           {currentChat.map(( chatMessage, index ) => <li key={index}>
-            <p className="role">{chatMessage.role}</p>
             <p>{chatMessage.content}</p>
           </li>)}
         </ul>
         <div className="bottom-section">
           <div className="input-container">
-            <input value={value} onChange={(e) => setValue(e.target.value)}/>
-            <div id="submit" onClick={getMessages}>🡒</div>
+            <button id="submit" onClick={getMessages}>Latest info</button>
           </div>
           <p className="info">
             Made by Grace Chang, Nathan Cheng, Robin Sardja, and Nicholas Tsai for SASEhack Fall 2023
