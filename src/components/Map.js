@@ -9,7 +9,7 @@ const AIText = () => {
 
   const [ disaster, setDisaster ] = useState("Hurricane Idalia")
   const [ county, setCounty ] = useState("Hillsborough County")
-  const [ state, setState ] = useState("FL")
+  const [ state, setState ] = useState("Florida")
 
   const [ value, setValue ] = useState("")
   const [ message, setMessage ] = useState("")
