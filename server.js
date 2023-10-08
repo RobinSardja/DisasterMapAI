@@ -19,14 +19,12 @@ app.post('/completions', async (req, res) => {
             model: "gpt-3.5-turbo",
             messages: [{
                 role: "user",
-                content: `${req.body.news} ....
-                <<Summarize professionally the following news briefings about 
-                ${req.body.disaster} in ${req.body.county}, ${req.body.state} 
-                with date ${req.body.date} in natural language format at the top.
-                If you don't find enough information give general knowledge on 
-                how to respond to disaster and don't say that there isn't.
-                Don't mention anything unrelated to disaster.
-                Respond in 80 words or less.>>`,
+                content: ` Professionally summarize the following news briefings
+                about ${req.body.disaster} in ${req.body.county}, ${req.body.state} 
+                with date ${req.body.date} in naturally spoken prose.
+                If you don't find enough information, give general knowledge on 
+                how to respond to the corresponding disaster without dismissing its existence.
+                Strictly stay on topic and respond in 100 words or less.${req.body.news}.`,
             }],
             max_tokens: 150,
         })
