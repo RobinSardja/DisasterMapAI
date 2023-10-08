@@ -4,7 +4,8 @@ class TextBox extends React.Component{
     render() {
       return (
         <div>
-          <p>Test.</p>
+          <h1>Disaster Map</h1>
+          <p>Click on an icon to learn more about a natural disaster in that area!</p>
         </div>
       );
     };

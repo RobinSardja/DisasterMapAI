@@ -59,6 +59,10 @@ img{
   height: auto;
 }
 
+.info-list{
+  text-align: left;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -81,10 +85,6 @@ img{
 
 #navbar-menu li{
   display: inline;
-}
-
-#location-menu ul{
-  list-style: none;
 }
 
 .map {
@@ -118,4 +118,5 @@ img{
 .side-text-container{
   display: grid;
   grid-template-rows: 30% 70%;
+  justify-content: center;
 }

@@ -4,89 +4,14 @@ import InfoBox from './InfoBox'
 import { useState, useEffect } from 'react'
 import counties from "./counties.json"
 import TextBox from './TextBox'
-
-const AIText = () => {
-
-  const [ disaster, setDisaster ] = useState("Hurricane Idalia")
-  const [ county, setCounty ] = useState("Hillsborough County")
-  const [ state, setState ] = useState("Florida")
-
-  const [ value, setValue ] = useState("")
-  const [ message, setMessage ] = useState("")
-
-  const [ previousChats, setPreviousChats ] = useState([])
-
-  const [ currentTitle, setCurrentTitle ] = useState("")
-
-  const getMessages = async () => {
-    const options = {
-      method: "POST",
-      body: JSON.stringify({
-        disaster: disaster,
-        county: county,
-        state: state,
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    }
-    try {
-      const response = await fetch('http://localhost:8000/completions', options)
-      const data = await response.json()
-      setMessage(data.choices[0].message)
-    } catch (error) {
-      console.error(error)
-    }
-  }
-
-  useEffect(() => {
-    console.log(currentTitle, value, message)
-    setCurrentTitle(value)
-    setPreviousChats(prevChats => (
-      [ // ...prevChats,
-        {
-          title: currentTitle,
-          role: message.role,
-          content: message.content,
-        },
-      ]
-    ))
-  }, [message, currentTitle])
-
-  console.log(previousChats)
-
-  const currentChat = previousChats.filter( previousChat => previousChat.title === currentTitle )
-  const uniqueTitles = Array.from(new Set(previousChats.map( previousChat => previousChat.title )))
-  console.log(uniqueTitles)
-
-  return (
-    <div className="App">
-      <section className="main">
-        <h1>EmergenSAVE</h1>
-        <ul className="feed">
-          {currentChat.map(( chatMessage, index ) => <li key={index}>
-            <p>{chatMessage.content}</p>
-          </li>)}
-        </ul>
-        <div className="bottom-section">
-          <div className="input-container">
-            <button id="submit" onClick={getMessages}>Latest info</button>
-          </div>
-          <p className="info">
-            Made by Grace Chang, Nathan Cheng, Robin Sardja, and Nicholas Tsai for SASEhack Fall 2023
-          </p>
-        </div>
-      </section>
-    </div>
-  );
-}
+import Description from './Description'
 
 const Map = ({eventData, eventData2, center, zoom}) => {
     const [locationInfo, setLocationInfo] = useState(null)
 
     const markers = eventData && eventData.map(ev => {
         if(ev.categories[0].id === "wildfires") {
-            if (ev.geometry[0].date[3] == '3') {
+            if (ev.geometry[0].date[3] === '3') {
                 return <LocationMarker type={0}
                 lat={ev.geometry[0].coordinates[1]} 
                 lng={ev.geometry[0].coordinates[0]}
@@ -125,7 +50,7 @@ const Map = ({eventData, eventData2, center, zoom}) => {
         var latty;
         var longy;
         for (var i = 0; i < counties.length; i++){
-            if ((counties[i].county_fips).toString() == fippy){
+            if ((counties[i].county_fips).toString() === fippy){
                latty = counties[i].lat;
                longy = counties[i].lng;
                county = counties[i].county_full;
@@ -133,7 +58,7 @@ const Map = ({eventData, eventData2, center, zoom}) => {
             }
         }
 
-        if (ev2.fipsCountyCode != "000" && ev2.declarationTitle != "WELLNITZ FIRE" && ev2.declarationTitle != "WELLNITZ FIRE" && ev2.declarationTitle != "WELLNITZ FIRE" && !(ev2.declarationTitle === "SEVERE WINTER STORMS AND SNOWSTORM" && ev2.fipsCountyCode === "113")
+        if (ev2.fipsCountyCode !== "000" && ev2.declarationTitle !== "WELLNITZ FIRE" && ev2.declarationTitle !== "WELLNITZ FIRE" && ev2.declarationTitle !== "WELLNITZ FIRE" && !(ev2.declarationTitle === "SEVERE WINTER STORMS AND SNOWSTORM" && ev2.fipsCountyCode === "113")
         && ((ev2.incidentBeginDate[2] === '2' && ev2.incidentBeginDate[3] === '3')
         //|| (ev2.incidentBeginDate[2] === '2' && ev2.incidentBeginDate[3] === '2')
         )) {
@@ -170,12 +95,86 @@ const Map = ({eventData, eventData2, center, zoom}) => {
         }
     })
 
+    const AIText = () => {
+
+      const [ disaster, setDisaster ] = useState(locationInfo ? locationInfo.title : "");
+      const [ county, setCounty ] = useState(locationInfo ? locationInfo.state : "");
+      const [ state, setState ] = useState(locationInfo ? locationInfo.county : "");
+    
+      const [ value, setValue ] = useState("")
+      const [ message, setMessage ] = useState("")
+    
+      const [ previousChats, setPreviousChats ] = useState([])
+    
+      const [ currentTitle, setCurrentTitle ] = useState("")
+    
+      const getMessages = async () => {
+        const options = {
+          method: "POST",
+          body: JSON.stringify({
+            disaster: disaster,
+            county: county,
+            state: state,
+          }),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+        try {
+          const response = await fetch('http://localhost:8000/completions', options)
+          const data = await response.json()
+          setMessage(data.choices[0].message)
+        } catch (error) {
+          console.error(error)
+        }
+      }
+    
+      useEffect(() => {
+        console.log(currentTitle, value, message)
+        setCurrentTitle(value)
+        setPreviousChats(prevChats => (
+          [ // ...prevChats,
+            {
+              title: currentTitle,
+              role: message.role,
+              content: message.content,
+            },
+          ]
+        ))
+      }, [message, currentTitle])
+    
+      console.log(previousChats)
+    
+      const currentChat = previousChats.filter( previousChat => previousChat.title === currentTitle )
+      const uniqueTitles = Array.from(new Set(previousChats.map( previousChat => previousChat.title )))
+      console.log(uniqueTitles)
+    
+      return (
+        <div className="App">
+          <section className="main">
+            <ul className="feed">
+              {currentChat.map(( chatMessage, index ) => <li key={index}>
+                <p>{chatMessage.content}</p>
+              </li>)}
+            </ul>
+            <div className="bottom-section">
+              <div className="input-container">
+                <button id="submit" onClick={getMessages}>Latest info</button>
+              </div>
+              <p className="info">
+                Made by Grace Chang, Nathan Cheng, Robin Sardja, and Nicholas Tsai for SASEhack Fall 2023
+              </p>
+            </div>
+          </section>
+        </div>
+      );
+    }
+
   return (
     <div className="grid-container">
     <div className="side-text-container"> 
-        {locationInfo && <InfoBox info={locationInfo}/>}
-        {!locationInfo && <TextBox />}
-        <AIText />
+        {locationInfo && <div><InfoBox info={locationInfo}/> <AIText /></div>}
+        {!locationInfo  && <div><TextBox /> <Description /></div>}
     </div>
     <div className = "map">
         <GoogleMapReact bootstrapURLKeys={{key: 
