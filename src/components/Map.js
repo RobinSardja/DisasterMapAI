@@ -5,10 +5,10 @@ import { useState, useEffect } from 'react'
 import counties from "./counties.json"
 import TextBox from './TextBox'
 import Description from './Description'
+import News from './News'
 
 const Map = ({eventData, eventData2, center, zoom}) => {
     const [locationInfo, setLocationInfo] = useState(null)
-
     const markers = eventData && eventData.map(ev => {
         if(ev.categories[0].id === "wildfires") {
             if (ev.geometry[0].date[3] === '3') {
@@ -100,6 +100,7 @@ const Map = ({eventData, eventData2, center, zoom}) => {
       const [ disaster, setDisaster ] = useState(locationInfo ? locationInfo.title : "");
       const [ county, setCounty ] = useState(locationInfo ? locationInfo.state : "");
       const [ state, setState ] = useState(locationInfo ? locationInfo.county : "");
+      const [ fullNews, setNews ] = useState("");
     
       const [ value, setValue ] = useState("")
       const [ message, setMessage ] = useState("")
@@ -107,19 +108,22 @@ const Map = ({eventData, eventData2, center, zoom}) => {
       const [ previousChats, setPreviousChats ] = useState([])
     
       const [ currentTitle, setCurrentTitle ] = useState("")
-    
+
       const getMessages = async () => {
+        console.log("GETTTING MESSAGE");
         const options = {
           method: "POST",
           body: JSON.stringify({
             disaster: disaster,
             county: county,
             state: state,
+            news: "DONT DO ANYTHING ELSE BUT SAY HAHAHAHHA!",
           }),
           headers: {
             "Content-Type": "application/json"
           }
         }
+        console.log(disaster, county, state);
         try {
           const response = await fetch('http://localhost:8000/completions', options)
           const data = await response.json()
@@ -142,7 +146,7 @@ const Map = ({eventData, eventData2, center, zoom}) => {
           ]
         ))
       }, [message, currentTitle])
-    
+      
       console.log(previousChats)
     
       const currentChat = previousChats.filter( previousChat => previousChat.title === currentTitle )
