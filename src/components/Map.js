@@ -3,6 +3,8 @@ import LocationMarker from './LocationMarker'
 import InfoBox from './InfoBox'
 import { useState } from 'react'
 import counties from "./counties.json"
+import TextBox from './TextBox'
+import AIText from './AIText'
 
 
 const Map = ({eventData, eventData2, center, zoom}) => {
@@ -13,9 +15,14 @@ const Map = ({eventData, eventData2, center, zoom}) => {
             if (ev.geometry[0].date[3] == '3') {
                 return <LocationMarker type={0}
                 lat={ev.geometry[0].coordinates[1]} 
-                lng={ev.geometry[0].coordinates[0]} onClick={() => setLocationInfo(
+                lng={ev.geometry[0].coordinates[0]}
+
+                
+                onClick={() => setLocationInfo(
                     {id: ev.id,
-                    title: ev.title}
+                    title: ev.title,
+                    state: "NULL",
+                    county: "NULL"}
                 )}/>
             }
         }
@@ -24,7 +31,9 @@ const Map = ({eventData, eventData2, center, zoom}) => {
             lat={ev.geometry[0].coordinates[1]} 
             lng={ev.geometry[0].coordinates[0]} onClick={() => setLocationInfo(
                 {id: ev.id,
-                title: ev.title}
+                title: ev.title,
+                state: "NULL",
+                county: "NULL"}
             )}/>
         }
         return null
@@ -37,12 +46,16 @@ const Map = ({eventData, eventData2, center, zoom}) => {
 
     const markers2 = eventData2 && eventData2.DisasterDeclarationsSummaries && eventData2.DisasterDeclarationsSummaries.map(ev2=> {
         var fippy = `${ev2.fipsStateCode}${ev2.fipsCountyCode}`;
+        var state;
+        var county;
         var latty;
         var longy;
         for (var i = 0; i < counties.length; i++){
             if ((counties[i].county_fips).toString() == fippy){
                latty = counties[i].lat;
                longy = counties[i].lng;
+               county = counties[i].county_full;
+               state = counties[i].state_name;
             }
         }
 
@@ -69,9 +82,14 @@ const Map = ({eventData, eventData2, center, zoom}) => {
         return <LocationMarker type={typy}
                 lat={latty} 
                 lng={longy} 
+                state={state}
+                county={county}
+
                 onClick={() => setLocationInfo(
                     {id: ev2.incidentType,
-                    title: ev2.declarationTitle}
+                    title: ev2.declarationTitle,
+                    county: (county) ? county : "NULL" ,
+                    state: (state) ? state : "NULL" }
                 )}/>
         } else {
             return null;
@@ -79,6 +97,12 @@ const Map = ({eventData, eventData2, center, zoom}) => {
     })
 
   return (
+    <div className="grid-container">
+    <div className="side-text-container"> 
+        {locationInfo && <InfoBox info={locationInfo}/>}
+        {!locationInfo && <TextBox />}
+        <AIText />
+    </div>
     <div className = "map">
         <GoogleMapReact bootstrapURLKeys={{key: 
         'AIzaSyCLIexfr2fJ_XSuKzMjXsAOx8gkt8uBLqM'}}
@@ -88,7 +112,7 @@ const Map = ({eventData, eventData2, center, zoom}) => {
             {markers2}
             {markers}
         </GoogleMapReact>
-        {locationInfo && <InfoBox info={locationInfo}/>}
+    </div>
     </div>
   )
 }
