@@ -104,7 +104,7 @@ const Map = ({eventData, eventData2, center, zoom}) => {
       const [ state, setState ] = useState(locationInfo ? locationInfo.county : "");
       const [ date, setDate ] = useState(locationInfo ? locationInfo.date : "");
       //NEWSCONTENT
-      var newsContent = News(disaster, county, state, date) // <----- ROBIN IS SO SMART!!!!!!!!
+      var newsContent = News(disaster, county, state, locationInfo.id) // <----- ROBIN IS SO SMART!!!!!!!!
       //NEWSCONTENT
       const [ value, setValue ] = useState("")
       const [ message, setMessage ] = useState("")
@@ -124,6 +124,7 @@ const Map = ({eventData, eventData2, center, zoom}) => {
             disaster: disaster,
             county: county,
             state: state,
+            date: locationInfo.date,
             news: newsContent,
           }),
           headers: {

@@ -7,6 +7,7 @@ const InfoBox = ({info}) => {
           <p>Name: <strong>{info.title}</strong></p>
           <p>State: <strong>{info.state}</strong></p>
           <p>County: <strong>{info.county}</strong></p>
+          <p>Date: <strong>{info.date}</strong></p>
         </div>
     </div>
   )
