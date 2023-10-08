@@ -6,7 +6,7 @@ import counties from "./counties.json"
 import TextBox from './TextBox'
 import Description from './Description'
 import News from './News'
-import ReactDomServer from 'react-dom/server';
+import Loader from './Loader'
 
 const Map = ({eventData, eventData2, center, zoom}) => {
     const [locationInfo, setLocationInfo] = useState(null)
@@ -103,6 +103,7 @@ const Map = ({eventData, eventData2, center, zoom}) => {
       const [ county, setCounty ] = useState(locationInfo ? locationInfo.state : "");
       const [ state, setState ] = useState(locationInfo ? locationInfo.county : "");
       const [ date, setDate ] = useState(locationInfo ? locationInfo.date : "");
+      const [loading, setLoading ] = useState(false);
       //NEWSCONTENT
       var newsContent = News(disaster, county, state, locationInfo.id) // <----- ROBIN IS SO SMART!!!!!!!!
       //NEWSCONTENT
@@ -114,6 +115,7 @@ const Map = ({eventData, eventData2, center, zoom}) => {
       const [ currentTitle, setCurrentTitle ] = useState("")
 
       const getMessages = async () => {
+        setLoading(true);
         console.log("GETTTING MESSAGE");
         console.log("NEWS IS ---------------------")
         console.log(newsContent)
@@ -133,12 +135,13 @@ const Map = ({eventData, eventData2, center, zoom}) => {
         }
         console.log(prompt);
         try {
-          const response = await fetch('http://localhost:8000/completions', options)
-          const data = await response.json()
-          setMessage(data.choices[0].message)
+          const response = await fetch('http://localhost:8000/completions', options);
+          const data = await response.json();
+          setMessage(data.choices[0].message);
         } catch (error) {
           console.error(error)
         }
+        setLoading(false);
       }
     
       useEffect(() => {
@@ -162,21 +165,26 @@ const Map = ({eventData, eventData2, center, zoom}) => {
       console.log(uniqueTitles)
     
       return (
-        <div className="App">
+        <div>
+          <h1 style={{ color: 'white', fontSize: 25}}>More Information:</h1>
           <section className="feed">
             <div id="feed">
-              <h1>More Information:</h1>
-              {currentChat.map(( chatMessage, index ) => <p key={index}>
-                {chatMessage.content}
-              </p>)}
+            {loading ? (
+          <div className='small-loading' id='small-loading'><Loader /></div>
+        ) : (
+          <ul id="navbar-menu">
+            {currentChat.map((chatMessage, index) => (
+              <li key={index}>
+                <p style={{ color: 'white', fontSize: 17, paddingLeft: 10, paddingRight: 10 }}>{chatMessage.content}</p>
+              </li>
+            ))}
+          </ul>
+        )}
             </div>
             <div className="bottom-section">
               <div className="input-container">
                 <button id="submit" onClick={getMessages}>Latest info</button>
               </div>
-              <p className="info">
-                Made by Grace Chang, Nathan Cheng, Robin Sardja, and Nicholas Tsai for SASEhack Fall 2023
-              </p>
             </div>
           </section>
         </div>
@@ -186,8 +194,8 @@ const Map = ({eventData, eventData2, center, zoom}) => {
   return (
     <div className="grid-container">
     <div> 
-        {locationInfo && <div className='side-text-container'><InfoBox info={locationInfo}/> <AIText /></div>}
-        {!locationInfo  && <div className='side-text-container'><TextBox /> <Description /></div>}
+        {locationInfo && <div className='side-text-container'> <div className='info'><InfoBox info={locationInfo}/></div> <div className='info'><AIText /></div></div>}
+        {!locationInfo  && <div className='side-text-container'><div className='info'><TextBox className="info"/></div> <div className='info'><Description className="info" /></div></div>}
     </div>
     <div className = "map">
         <GoogleMapReact bootstrapURLKeys={{key: 
@@ -205,10 +213,10 @@ const Map = ({eventData, eventData2, center, zoom}) => {
 
 Map.defaultProps = {
     center: {
-        lat: 42.3265,
-        lng: -122.8756
+        lat: 38,
+        lng: -97
     },
-    zoom: 6
+    zoom: 4.5
 }
 
 export default Map

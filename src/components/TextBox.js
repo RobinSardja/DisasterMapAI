@@ -4,8 +4,8 @@ class TextBox extends React.Component{
     render() {
       return (
         <div>
-          <h1>Disaster Map</h1>
-          <p>Click on an icon to learn more about a natural disaster in that area!</p>
+          <h1 style={{ color: 'white', paddingLeft: 10, paddingRight: 10 }}>Safety is Just One Click Away</h1>
+          <p style={{ color: 'white', fontSize: 25, paddingLeft: 10, paddingRight: 10 }}>Click an icon to learn information more about a specific hurricane, earthquake, fire, storm, and more in that area!</p>
         </div>
       );
     };

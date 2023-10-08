@@ -2,18 +2,9 @@ import React from 'react';
 
 export default function Footer(){
     return (
-        <div className='app-footer'>
-            <div>            
-                <p>Brought to you by NOODLEZ:</p>
-                    <li>Nathan Cheng</li>
-                    <li>Robin Sardja</li>
-                    <li>Grace Chang</li>
-                    <li>Nicholas Tsai</li>
-            </div>
-
-            <div>
-                <p>Check out more resources here!</p>
-            </div>
+        <div className='app-footer'>           
+                <p style={{ color: 'white', fontSize: 25}}>Brought to you by <strong>NOODLEZ</strong></p>
+                <p style={{ color: 'white', fontSize: 17}}>Nathan Cheng, Robin Sardja, Grace Chang, Nicholas Tsai</p>
         </div>
     )
 }

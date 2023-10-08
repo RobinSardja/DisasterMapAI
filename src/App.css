@@ -1,23 +1,38 @@
 .App {
   text-align: center;
+  background-color: #caba9c;
 }
 
+a:link {
+  color: #caba9c;
+}
+
+a:visited {
+  color: #8a6240;
+}
+
+a:hover {
+  color: white;
+}
+
+a:active {
+  color: lightskyblue;
+}
+
+
 .app-footer{
-  background-color: #283a36;
-  min-height: 100px;
+  background-color: #4d2d18;
+  height: 150px;
   width: 100%;
   display: grid;
-  grid-template-columns: auto auto;
-  font-size: calc(10px + 1vmin);
+  grid-template-rows: auto auto;
   color: white;
 }
 
 .app-header {
-  background-color: #40bca3;
-  min-height: 50px;
+  background-color: #102820;
+  height: 1fr;
   display: grid;
-
-  color: white;
 }
 
 .App-link {
@@ -40,9 +55,9 @@
   padding-left: 50px;
   padding-right: 50px;
   display: grid;
-  grid-template-columns: 1fr 4fr;
+  grid-template-columns: 1.5fr 3.5fr;
   grid-template-rows: auto;
-  gap: 100px;
+  gap: 50px;
 }
 
 .grid-half{
@@ -63,27 +78,29 @@ img{
   text-align: left;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.navbar1{
+  display: grid;
+  grid-template-columns: auto;
 }
 
-.navbar{
+.navbar2{
   display: grid;
   grid-template-columns: auto auto;
-  font-size: 20px;
 }
 
 #navbar-menu ul{
   list-style: none;
+  padding-left: 0px;
 }
 
 #navbar-menu li{
   display: inline;
+  color:white;
+}
+
+#menutop ul {
+  padding-left: 0;
+  margin: 0;
 }
 
 .feed{
@@ -95,6 +112,8 @@ img{
 
 #feed ul{
   list-style: none;
+  padding-left: 0;
+  margin: 0;
 }
 
 #feed li{
@@ -102,9 +121,13 @@ img{
 }
 
 .map {
-  width: 4fr;
-  height: 150vh;
+  width: 2fr;
+  height: 80vh;
   position:relative;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .location-marker {
@@ -112,25 +135,64 @@ img{
   color: purple;
 }
 
-.loader {
-  display: flex;
+.map-loader {
   flex-direction: column;
   align-items: center;
   justify-content: center;
   min-height:  100vh;
+  width: 100%;
+}
+
+.map-loader img{
+  width: 500px;
 }
 
 .loader img {
-  width: 400px;
+  width: 75%;
 }
 
 .loader h1 {
-  margin-top: -100px;
-  color: red;
+  color: white;
 }
 
 .side-text-container{
   display: grid;
-  grid-template-rows: 1fr 2fr;
+  height: 100%;
+  grid-template-rows: 35vh 60vh;
   align-content: left;
+  border-radius: 10px;
+  gap: 5vh;
+}
+
+.info{
+  background-color: #4C6444;
+  border-radius: 10px;
+  height: 100%;
+}
+
+.info-2{
+  background-color: rgb(123, 242, 200);
+  border-radius: 10px; 
+}
+
+.logo img{
+  width: 10px;
+}
+
+.info-name{
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.app-header img{
+  display: inline;
+}
+
+#small-loading img{
+  height: 100%;
+  width: 50%;
+}
+
+.small-loading{
+  justify-content: center;
 }

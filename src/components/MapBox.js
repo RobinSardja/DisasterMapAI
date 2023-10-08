@@ -40,7 +40,7 @@ function MapBox() {
 
   return (
     <div>
-      { !loading ? <Map eventData={eventData} eventData2={otherApiData}/> : <Loader></Loader>}
+      { !loading ? <Map eventData={eventData} eventData2={otherApiData}/> : <div className='map-loader'><Loader/></div>}
     </div>
   );
 }
