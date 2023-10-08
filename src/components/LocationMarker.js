@@ -11,7 +11,7 @@ import wstorm from '@iconify/icons-mdi/snowflake-variant';
 import torn from '@iconify/icons-mdi/weather-hurricane-outline';
 import './LocationMarker.css';
 
-const LocationMarker = ({ type, lat, lng, onClick }) => {
+const LocationMarker = ({ type, lat, lng, state, county, onClick }) => {
     let displayIcon;
     let iconClass;
 
@@ -57,7 +57,7 @@ const LocationMarker = ({ type, lat, lng, onClick }) => {
     }
     return (
         <div className={`location-marker ${iconClass}`} id={displayIcon} onClick={onClick}>
-            <Icon icon={displayIcon} id={displayIcon}/>
+            <Icon icon={displayIcon}/>
         </div>
     );
 };

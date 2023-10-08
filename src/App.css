@@ -83,9 +83,13 @@ img{
   display: inline;
 }
 
+#location-menu ul{
+  list-style: none;
+}
+
 .map {
   width: 4fr;
-  height: 100vh;
+  height: 150vh;
   position:relative;
 }
 
@@ -109,4 +113,9 @@ img{
 .loader h1 {
   margin-top: -100px;
   color: red;
+}
+
+.side-text-container{
+  display: grid;
+  grid-template-rows: 30% 70%;
 }
