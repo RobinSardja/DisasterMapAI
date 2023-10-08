@@ -20,8 +20,8 @@ const Map = ({eventData, eventData2, center, zoom}) => {
                 onClick={() => setLocationInfo(
                     {id: ev.id,
                     title: ev.title,
-                    state: "NULL",
-                    county: "NULL"}
+                    state: "",
+                    county: ""}
                 )}/>
             }
         }
@@ -31,8 +31,8 @@ const Map = ({eventData, eventData2, center, zoom}) => {
             lng={ev.geometry[0].coordinates[0]} onClick={() => setLocationInfo(
                 {id: ev.id,
                 title: ev.title,
-                state: "NULL",
-                county: "NULL"}
+                state: "",
+                county: ""}
             )}/>
         }
         return null
@@ -163,12 +163,13 @@ const Map = ({eventData, eventData2, center, zoom}) => {
     
       return (
         <div className="App">
-          <section className="main">
-            <ul className="feed">
-              {currentChat.map(( chatMessage, index ) => <li key={index}>
-                <p>{chatMessage.content}</p>
-              </li>)}
-            </ul>
+          <section className="feed">
+            <div id="feed">
+              <h1>More Information:</h1>
+              {currentChat.map(( chatMessage, index ) => <p key={index}>
+                {chatMessage.content}
+              </p>)}
+            </div>
             <div className="bottom-section">
               <div className="input-container">
                 <button id="submit" onClick={getMessages}>Latest info</button>
@@ -184,9 +185,9 @@ const Map = ({eventData, eventData2, center, zoom}) => {
 
   return (
     <div className="grid-container">
-    <div className="side-text-container"> 
-        {locationInfo && <div><InfoBox info={locationInfo}/> <AIText /></div>}
-        {!locationInfo  && <div><TextBox /> <Description /></div>}
+    <div> 
+        {locationInfo && <div className='side-text-container'><InfoBox info={locationInfo}/> <AIText /></div>}
+        {!locationInfo  && <div className='side-text-container'><TextBox /> <Description /></div>}
     </div>
     <div className = "map">
         <GoogleMapReact bootstrapURLKeys={{key: 
