@@ -2,11 +2,13 @@ import GoogleMapReact from 'google-map-react'
 import LocationMarker from './LocationMarker'
 import InfoBox from './InfoBox'
 import { useState } from 'react'
+import counties from "./counties.json"
 
-const Map = ({eventData, center, zoom}) => {
+
+const Map = ({eventData, eventData2, center, zoom}) => {
     const [locationInfo, setLocationInfo] = useState(null)
 
-    const markers = eventData.map(ev => {
+    const markers = eventData && eventData.map(ev => {
         if(ev.categories[0].id === "wildfires") {
             if (ev.geometry[0].date[3] == '3') {
                 return <LocationMarker type={0}
@@ -28,20 +30,40 @@ const Map = ({eventData, center, zoom}) => {
         if(ev.categories[0].id === "volcanoes") {
                 return <LocationMarker type={2}
                 lat={ev.geometry[0].coordinates[1]} 
-                lng={ev.geometry[0].coordinates[0]} onClick={() => setLocationInfo(
-                    {id: ev.id,
-                    title: ev.title}
-                )}/>
-        }
-        if(ev.categories[0].id === "=earthquakes") {
-                return <LocationMarker type={3}
-                lat={ev.geometry[0].coordinates[1]} 
-                lng={ev.geometry[0].coordinates[0]} onClick={() => setLocationInfo(
+                lng={ev.geometry[0].coordinates[0]} 
+                onClick={() => setLocationInfo(
                     {id: ev.id,
                     title: ev.title}
                 )}/>
         }
         return null
+    })
+
+    console.log("IIIIIIIIIIIII-----(");
+    console.log(eventData2.DisasterDeclarationsSummaries);
+    console.log(counties);
+    console.log("IIIIIIIIIIIII-----)");
+
+    const markers2 = eventData2 && eventData2.DisasterDeclarationsSummaries && eventData2.DisasterDeclarationsSummaries.map(ev2=> {
+        var fippy = `${ev2.fipsStateCode}${ev2.fipsCountyCode}`;
+        var latty;
+        var longy;
+        for (var i = 0; i < counties.length; i++){
+            // look for the entry with a matching `code` value
+            if (counties[i].county_fips == fippy){
+               latty = counties[i].lat;
+               longy = counties[i].lng;
+               console.log(latty);
+               console.log(longy);
+            }
+        }
+        return <LocationMarker type={3}
+                lat={latty} 
+                lng={longy} 
+                onClick={() => setLocationInfo(
+                    {id: ev2.declarationDate,
+                    title: ev2.declarationTitle}
+                )}/>
     })
 
   return (
@@ -51,6 +73,7 @@ const Map = ({eventData, center, zoom}) => {
         defaultCenter={ center }
         defaultZoom={ zoom }
         >
+            {markers2}
             {markers}
         </GoogleMapReact>
         {locationInfo && <InfoBox info={locationInfo}/>}
