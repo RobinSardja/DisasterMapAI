@@ -21,7 +21,7 @@ function News(term1, term2, term3, term4) {
     const fetchNews = async () => {
       setLoading(true);
       try {
-        const res = await fetch('https://api.nytimes.com/svc/search/v2/articlesearch.json?q='+qooby+"fq="+term4+'&api-key=qOCPbjhSJd0RMlEa9iYVtN026kGBfkOE');
+        const res = await fetch('https://api.nytimes.com/svc/search/v2/articlesearch.json?q='+qooby+"fq="+term4+'&api-key=K6zn6VWICkfW1j2kZD0ufRuYibhCs9Lb');
         const data = await res.json();
         setNewsData(data.response.docs || []);
       } catch (error) {
