@@ -4,6 +4,7 @@ import Loader from './Loader';
 function News() {
   const [newsData, setNewsData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [fullData, setFullData] = useState(""); // Define fullData as a state variable
 
   useEffect(() => {
     var terms = ["wild", "fire"];
@@ -32,18 +33,21 @@ function News() {
     if (newsData.length > 0) {
       var dataString = newsData[0].abstract;
       for (var i = 1; i < newsData.length-1 || i < 10; i++) {
-          dataString += newsData[i].abstract
+        dataString += newsData[i].abstract
       }
       console.log("NEWS DATA:", dataString);
+      setFullData(dataString); // Update the state variable fullData
     }
   }, [newsData]);
+
+  console.log("SPOIFJPEJOIEIJF", fullData);
 
   return (
     <div>
       {loading ? (
         <Loader />
       ) : newsData.length > 0 ? (
-        <h1>{newsData[0].abstract}</h1>
+        <h1>{fullData}</h1>
       ) : (
         <p>No news data available.</p>
       )}
