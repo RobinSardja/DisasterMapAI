@@ -6,6 +6,7 @@ import counties from "./counties.json"
 import TextBox from './TextBox'
 import Description from './Description'
 import News from './News'
+import ReactDomServer from 'react-dom/server';
 
 const Map = ({eventData, eventData2, center, zoom}) => {
     const [locationInfo, setLocationInfo] = useState(null)
@@ -13,10 +14,9 @@ const Map = ({eventData, eventData2, center, zoom}) => {
         if(ev.categories[0].id === "wildfires") {
             if (ev.geometry[0].date[3] === '3') {
                 return <LocationMarker type={0}
-                lat={ev.geometry[0].coordinates[1]} 
+                lat={ev.geometry[0].coordinates[1]}
                 lng={ev.geometry[0].coordinates[0]}
 
-                
                 onClick={() => setLocationInfo(
                     {id: ev.id,
                     title: ev.title,
@@ -88,7 +88,8 @@ const Map = ({eventData, eventData2, center, zoom}) => {
                     {id: ev2.incidentType,
                     title: ev2.declarationTitle,
                     county: (county) ? county : "NULL" ,
-                    state: (state) ? state : "NULL" }
+                    state: (state) ? state : "NULL" ,
+                    date: (ev2.incidentBeginDate) ? ev2.incidentBeginDate : "2023",}
                 )}/>
         } else {
             return null;
@@ -97,11 +98,14 @@ const Map = ({eventData, eventData2, center, zoom}) => {
 
     const AIText = () => {
 
+      
       const [ disaster, setDisaster ] = useState(locationInfo ? locationInfo.title : "");
       const [ county, setCounty ] = useState(locationInfo ? locationInfo.state : "");
       const [ state, setState ] = useState(locationInfo ? locationInfo.county : "");
-      const [ news, setNews ] = useState("DONT DO ANYTHING ELSE BUT SAY HAHAHAHHA!");
-    
+      const [ date, setDate ] = useState(locationInfo ? locationInfo.date : "");
+      //NEWSCONTENT
+      var newsContent = News(disaster, county, state, date) // <----- ROBIN IS SO SMART!!!!!!!!
+      //NEWSCONTENT
       const [ value, setValue ] = useState("")
       const [ message, setMessage ] = useState("")
     
@@ -111,13 +115,16 @@ const Map = ({eventData, eventData2, center, zoom}) => {
 
       const getMessages = async () => {
         console.log("GETTTING MESSAGE");
+        console.log("NEWS IS ---------------------")
+        console.log(newsContent)
+        console.log("NEWS IS ---------------------")
         const options = {
           method: "POST",
           body: JSON.stringify({
             disaster: disaster,
             county: county,
             state: state,
-            news: news,
+            news: newsContent,
           }),
           headers: {
             "Content-Type": "application/json"

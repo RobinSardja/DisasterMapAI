@@ -1,13 +1,17 @@
 import { useState, useEffect } from 'react';
 import Loader from './Loader';
 
-function News() {
+function News(term1, term2, term3, term4) {
+  console.log(term1)
+  console.log(term2)
+  console.log(term3)
+  console.log(term4)
   const [newsData, setNewsData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [fullData, setFullData] = useState(""); // Define fullData as a state variable
+  const [fullData, setFullData] = useState("");
 
   useEffect(() => {
-    var terms = ["CATS", "MEOW"];
+    var terms = [term1, term2, term3, term4];
     var qooby = "";
     for (var i = 0; i < terms.length; i++) {
       qooby += ('+' + terms[i])
@@ -18,7 +22,7 @@ function News() {
       try {
         const res = await fetch('https://api.nytimes.com/svc/search/v2/articlesearch.json?q='+qooby+'&api-key=qOCPbjhSJd0RMlEa9iYVtN026kGBfkOE');
         const data = await res.json();
-        setNewsData(data.response.docs || []); // Ensure newsData is an array
+        setNewsData(data.response.docs || []);
       } catch (error) {
         console.error('Error fetching news data:', error);
       } finally {
@@ -35,16 +39,15 @@ function News() {
       for (var i = 1; i < newsData.length-1 || i < 10; i++) {
         dataString += newsData[i].abstract
       }
+      console.log(term1)
+      console.log(term2)
+      console.log(term3)
       console.log("NEWS DATA:", dataString);
-      setFullData(dataString); // Update the state variable fullData
+      setFullData(dataString);
     }
   }, [newsData]);
 
-  console.log("SPOIFJPEJOIEIJF", fullData);
-
-  return (
-    newsData
-  );
+  return fullData;
 }
 
 export default News;
