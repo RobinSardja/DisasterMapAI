@@ -113,9 +113,13 @@ const Map = ({eventData, eventData2, center, zoom}) => {
       const [ previousChats, setPreviousChats ] = useState([])
     
       const [ currentTitle, setCurrentTitle ] = useState("")
+      
+      const [buttonClicked, setButtonClicked] = useState(null);
 
-      const getMessages = async () => {
+      const getMessages = async (goober) => {
+        setButtonClicked(goober);
         setLoading(true);
+        console.log("BUTTTTON IS::::: ", goober)
         console.log("GETTTING MESSAGE");
         console.log("NEWS IS ---------------------")
         console.log(newsContent)
@@ -128,6 +132,8 @@ const Map = ({eventData, eventData2, center, zoom}) => {
             state: state,
             date: locationInfo.date,
             news: newsContent,
+            //GOOOOOOBY PUT IT IN
+            id: goober,
           }),
           headers: {
             "Content-Type": "application/json"
@@ -137,6 +143,7 @@ const Map = ({eventData, eventData2, center, zoom}) => {
         try {
           const response = await fetch('http://localhost:8000/completions', options);
           const data = await response.json();
+          console.log(data)
           setMessage(data.choices[0].message);
         } catch (error) {
           console.error(error)
@@ -185,16 +192,16 @@ const Map = ({eventData, eventData2, center, zoom}) => {
         </div>
             <div className="bottom-section">
               <div className="input-container">
-                <button className='button' id="submit" onClick={getMessages}>Latest Information</button>
+              <button className='button' id="submit" onClick={() => getMessages(1)}>Latest Information</button>
               </div>
               <div className="input-container">
-                <button className='button' id="prepare" onClick={getMessages}>How can I prepare?</button>
+              <button className='button' id="prepare" onClick={() => getMessages(2)}>How can I prepare?</button>
               </div>
               <div className="input-container">
-                <button className='button' id="respond" onClick={getMessages}>How can I respond?</button>
+              <button className='button' id="respond" onClick={() => getMessages(3)}>How can I respond?</button>
               </div>
               <div className="input-container">
-                <button className='button' id="recover" onClick={getMessages}>How can I help recover?</button>
+              <button className='button' id="recover" onClick={() => getMessages(4)}>How can I help recover?</button>
               </div>
             </div>
           </div>
