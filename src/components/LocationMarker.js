@@ -2,7 +2,7 @@ import { Icon } from '@iconify/react';
 import fire from '@iconify/icons-mdi/fire-alert';
 import storm from '@iconify/icons-mdi/storm';
 import volcanoes from '@iconify/icons-mdi/volcano';
-import earthquake from '@iconify/icons-mdi/shaker';
+import earthquake from '@iconify/icons-mdi/pin';
 
 const LocationMarker = ({ type, lat, lng, onClick }) => {
     let displayIcon;

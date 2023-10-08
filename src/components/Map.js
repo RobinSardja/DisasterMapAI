@@ -49,21 +49,26 @@ const Map = ({eventData, eventData2, center, zoom}) => {
         var latty;
         var longy;
         for (var i = 0; i < counties.length; i++){
-            // look for the entry with a matching `code` value
-            if (counties[i].county_fips == fippy){
+            if ((counties[i].county_fips).toString() == fippy){
                latty = counties[i].lat;
                longy = counties[i].lng;
-               console.log(latty);
-               console.log(longy);
             }
         }
+
+        if (ev2.fipsCountyCode != "000" && ev2.declarationTitle != "WELLNITZ FIRE" && ev2.declarationTitle != "WELLNITZ FIRE" && ev2.declarationTitle != "WELLNITZ FIRE" && !(ev2.declarationTitle === "SEVERE WINTER STORMS AND SNOWSTORM" && ev2.fipsCountyCode === "113")
+        && ((ev2.incidentBeginDate[2] === '2' && ev2.incidentBeginDate[3] === '3')
+        //|| (ev2.incidentBeginDate[2] === '2' && ev2.incidentBeginDate[3] === '2')
+        )) {
         return <LocationMarker type={3}
                 lat={latty} 
                 lng={longy} 
                 onClick={() => setLocationInfo(
-                    {id: ev2.declarationDate,
-                    title: ev2.declarationTitle}
+                    {id: ev2.declarationTitle,
+                    title: ev2.incidentBeginDate}
                 )}/>
+        } else {
+            return null;
+        }
     })
 
   return (
