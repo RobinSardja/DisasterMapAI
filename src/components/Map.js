@@ -7,9 +7,9 @@ import TextBox from './TextBox'
 
 const AIText = () => {
 
-    const [ disaster, setDisaster ] = useState("Hurricane Idalia")
-    const [ county, setCounty ] = useState("Hillsborough County")
-    const [ state, setState ] = useState("FL")
+  const [ disaster, setDisaster ] = useState("Hurricane Idalia")
+  const [ county, setCounty ] = useState("Hillsborough County")
+  const [ state, setState ] = useState("FL")
 
   const [ value, setValue ] = useState("")
   const [ message, setMessage ] = useState("")
