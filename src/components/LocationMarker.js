@@ -6,7 +6,7 @@ import volcanoes from '@iconify/icons-mdi/volcano';
 import pin from '@iconify/icons-mdi/pin';
 import flood from '@iconify/icons-mdi/flood';
 import hurry from '@iconify/icons-mdi/hurricane';
-import stormz from '@iconify/icons-mdi/dot';
+import stormz from '@iconify/icons-mdi/cloud';
 import wstorm from '@iconify/icons-mdi/snowflake-variant';
 import torn from '@iconify/icons-mdi/weather-hurricane-outline';
 import './LocationMarker.css';
