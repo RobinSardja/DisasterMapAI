@@ -4,6 +4,7 @@ import InfoBox from './InfoBox'
 import { useState, useEffect } from 'react'
 import counties from "./counties.json"
 import TextBox from './TextBox'
+import Description from './Description'
 
 const Map = ({eventData, eventData2, center, zoom}) => {
     const [locationInfo, setLocationInfo] = useState(null)
@@ -151,7 +152,6 @@ const Map = ({eventData, eventData2, center, zoom}) => {
       return (
         <div className="App">
           <section className="main">
-            <h1>EmergenSAVE</h1>
             <ul className="feed">
               {currentChat.map(( chatMessage, index ) => <li key={index}>
                 <p>{chatMessage.content}</p>
@@ -173,9 +173,8 @@ const Map = ({eventData, eventData2, center, zoom}) => {
   return (
     <div className="grid-container">
     <div className="side-text-container"> 
-        {locationInfo && <InfoBox info={locationInfo}/>}
-        {!locationInfo && <TextBox />}
-        <AIText />
+        {locationInfo && <div><InfoBox info={locationInfo}/> <AIText /></div>}
+        {!locationInfo  && <div><TextBox /> <Description /></div>}
     </div>
     <div className = "map">
         <GoogleMapReact bootstrapURLKeys={{key: 
