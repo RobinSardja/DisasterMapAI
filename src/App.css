@@ -65,8 +65,8 @@ a:active {
 
 .grid-half{
   display:grid;
-  grid-template-columns: 2fr 2fr;
-  grid-template-rows: 2fr 2fr;
+  grid-template-columns: auto;
+  grid-template-rows: 0.5fr 2fr;
   gap: 10px;
   padding: 20px 20px 20px 20px;
   justify-content: space-evenly;
